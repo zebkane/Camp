@@ -1,0 +1,6 @@
+{
+    "board": "arduino:avr:uno",
+    "programmer": "avrisp",
+    "port": "/dev/tty.usbserial-1140",
+    "sketch": "MBot/destroyer_robot/destroyer_robot.ino"
+}
