@@ -28,6 +28,20 @@ void drive(bool forward, int speed)
   }
 }
 
+void turn(bool left, int speed)
+{
+  if (left)
+  {
+    motor1.run(speed);
+    motor2.run(speed);
+  }
+  else
+  {
+    motor1.run(-speed);
+    motor2.run(-speed);
+  }
+}
+
 void stop()
 {
   motor1.stop();
@@ -37,22 +51,24 @@ void stop()
 void reactToLine() {  
   if (linefollower_1.readSensors() != 3) {
     drive(false, 255);
-    delay(1000);
+    delay(500);
+    turn(true, 255);
+    delay(500);
+
   }
 
-  if (linefollower_2.readSensors() != 3) {
+  if (linefollower_2.readSensors() != 2) {
     drive(true, 255);
-    delay(1000);
+    delay(500);
+    turn(false, 255);
+    delay(500);
   }
 }
 
 void look(int speed)
 {
-  if (!targetFound)
-  {
-    motor1.run(speed);
-    motor2.run(speed);
-  }
+  if (targetFound) return;
+  turn(true, speed);
 }
 
 void charge(int speed)
@@ -61,32 +77,17 @@ void charge(int speed)
   {
     drive(true, speed);
     targetFound = true;
+
   }
   else if (ultraSensor2.distanceCm() <= 65)
   {
     drive(false, speed);
     targetFound = true;
+
   }
   else
   {
-    stop();
     targetFound = false;
-  }
-}
-
-void randomChance() {
-  if (!targetFound) {
-    int chance = random(1, 20);
-
-  if (chance <= 5) {
-    motor1.run(255);
-    motor2.run(255);
-    delay(1000);
-  } else if (chance <= 10) {
-    motor1.run(-255);
-    motor2.run(-255);
-    delay(1000);
-  }
   }
 }
 
@@ -109,7 +110,7 @@ void loop()
 {
   reactToLine();
 
-  look(255);
+  look(200);
 
   charge(255);
 }

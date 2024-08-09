@@ -1,6 +1,7 @@
 {
-    "board": "arduino:avr:uno",
-    "programmer": "avrisp",
-    "port": "/dev/tty.usbserial-1140",
-    "sketch": "MBot/destroyer_robot/destroyer_robot.ino"
+    "board": "arduino:avr:mega",
+    "programmer": "arduinoasisp",
+    "port": "/dev/tty.usbserial-1130",
+    "sketch": "mega/test.ino",
+    "configuration": "cpu=atmega2560"
 }
